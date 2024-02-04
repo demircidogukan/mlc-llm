@@ -28,6 +28,25 @@ Conversation ChatML() {
   return conv;
 }
 
+Conversation OpenChat() {
+  Conversation conv;
+  conv.name = "openchat";
+  conv.roles = {"GPT4 Correct User:", "GPT4 Correct Assistant:"};
+  conv.system =("Below is an instruction that describes a task. Write a response that appropriately completes the request.<|end_of_turn|>");
+  conv.messages = {};
+  conv.offset = 0;
+  conv.separator_style = SeparatorStyle::kSepRoleMsg;
+  conv.seps = {"<|end_of_turn|>\n"};
+  conv.role_msg_sep = "\n";
+  conv.role_empty_sep = "\n";
+  // TODO(mlc-team): add eos to mlc-chat-config
+  // and remove eos from stop token setting.
+  conv.stop_tokens = {2};
+  conv.stop_str = "<|end_of_turn|>";
+  conv.add_bos = false;
+  return conv;
+}
+
 Conversation OpenHermesMistral() {
   // Identical to chatml except for the system prompt and stop tokens
   Conversation conv;
@@ -737,6 +756,7 @@ Conversation Conversation::FromTemplate(const std::string& name) {
       {"glm", GLM},
       {"phi-2", Phi2},
       {"qwen", ChatML},
+      {"openchat",OpenChat},
       {"stablelm-2", StableLM2}};
   auto it = factory.find(name);
   if (it == factory.end()) {

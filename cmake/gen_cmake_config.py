@@ -48,7 +48,7 @@
 
 
 
-
+if __name__ == "__main__":
     cmake_config_str = "set(TVM_HOME {})\n".format("3rdparty/tvm")
     cmake_config_str += "set(CMAKE_BUILD_TYPE RelWithDebInfo)\n"
     cmake_config_str += "set({} ON)\n".format("USE_CUDA")
